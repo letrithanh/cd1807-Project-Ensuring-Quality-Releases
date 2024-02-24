@@ -95,7 +95,7 @@ stages:
       displayName: Terraform destroy
       inputs:
         provider: 'azurerm'
-        command: 'destroy -lock=false'
+        command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
 
