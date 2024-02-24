@@ -60,24 +60,24 @@ stages:
     # Generate an SSH key pair in your local/AZ Cloud shell. Use the public key in the Terraform VM module. 
     # Install public key and private key file to the pipeline agent, using the task below. 
     # ToDo: Change the inputs value below
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: '$(knownHostEntry)' # variable value
-    #     # sshPublicKey: 'PUBLIC_KEY'            # variable value
-    #     sshKeySecureFile: 'udacity_rsa' # Use secure file feature in the pipeline library UI to save the "id_rsa" file, as mentioned here: https://learn.microsoft.com/en-us/azure/devops/pipelines/library/secure-files?view=azure-devops#add-a-secure-file
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: '$(knownHostEntry)' # variable value
+        # sshPublicKey: 'PUBLIC_KEY'            # variable value
+        sshKeySecureFile: 'udacity_rsa' # Use secure file feature in the pipeline library UI to save the "id_rsa" file, as mentioned here: https://learn.microsoft.com/en-us/azure/devops/pipelines/library/secure-files?view=azure-devops#add-a-secure-file
     
-    # - task: DownloadSecureFile@1
-    #   name: tfvardef
-    #   displayName: Download terraform tfvars
-    #   inputs:
-    #     secureFile: terraform.tfvars
+    - task: DownloadSecureFile@1
+      name: tfvardef
+      displayName: Download terraform tfvars
+      inputs:
+        secureFile: terraform.tfvars
     
-    # - task: Bash@3
-    #   displayName: 'Copy terraform.tfvars to vm'
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: |
-    #       cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
+    - task: Bash@3
+      displayName: 'Copy terraform.tfvars to vm'
+      inputs:
+        targetType: 'inline'
+        script: |
+          cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
 
     
     # Run Terraform Apply
