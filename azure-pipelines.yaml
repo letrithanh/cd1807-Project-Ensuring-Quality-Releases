@@ -282,13 +282,6 @@ stages:
                 mv /home/azuredevops/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
-                FILE=/home/azuredevops/app/chromedriver_linux64.zip
-                if [ ! -f "$FILE" ]; then
-                    wget https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chrome-linux64.zip
-                    unzip -o chromedriver_linux64.zip
-                    sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
-                fi
-                export PATH=$PATH:/home/azuredevops/app
                 echo "Starting Selenium Tests"
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 run.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log

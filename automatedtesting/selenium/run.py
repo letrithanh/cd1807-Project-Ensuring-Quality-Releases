@@ -74,7 +74,7 @@ def remove_cart(driver):
         remove_button.click()
 
     cart = driver.find_elements(By.CSS_SELECTOR, ".shopping_cart_badge")
-    assert len(cart) != 0, "Removing failed"
+    assert len(cart) == 0, "Removing failed"
 
     log("Removed cart")
 
