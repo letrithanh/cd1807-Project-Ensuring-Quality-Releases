@@ -220,8 +220,8 @@ stages:
                 tar -xf apache-jmeter-5.6.2.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
                 
-                ./apache-jmeter-5.6.2/bin/jmeter -n -t stress.jmx -l log/jmeter/stress/stress.csv -e -f -o log/jmeter/stress/html -j log/jmeter/stress/jmeter.log
-                ./apache-jmeter-5.6.2/bin/jmeter -n -t endurance.jmx -l log/jmeter/endurance/endurance.csv -e -f -o log/jmeter/endurance/html -j log/jmeter/endurance/jmeter.log
+                ./apache-jmeter-5.6.2/bin/jmeter -n -t automatedtesting/jmeter/stress.jmx -l log/jmeter/stress/stress.csv -e -f -o log/jmeter/stress/html -j log/jmeter/stress/jmeter.log
+                ./apache-jmeter-5.6.2/bin/jmeter -n -t automatedtesting/jmeter/endurance.jmx -l log/jmeter/endurance/endurance.csv -e -f -o log/jmeter/endurance/html -j log/jmeter/endurance/jmeter.log
                 
                 echo "JMeter stress log"
                 sudo cat log/jmeter/stress/jmeter.log

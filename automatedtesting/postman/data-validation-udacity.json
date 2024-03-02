@@ -13,16 +13,22 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"function sleep(ms) {",
+							"    return new Promise(resolve => setTimeout(resolve, ms));",
+							"}",
+							"",
 							"var json = pm.response.json();",
 							"const id = json.data.id",
 							"const responsedName = json.data.name",
 							"const responsedSalary = json.data.salary",
 							"const responsedAge = json.data.age",
-							"pm.test(\"Created employee response test\", function () {",
+							"pm.test(\"Created employee response test\", async function () {",
 							"    pm.expect(id != null).to.true()",
 							"    pm.expect(pm.variables.get(\"name\")).to.eq(responsedName);",
 							"    pm.expect(pm.variables.get(\"salary\")).to.eq(responsedSalary);",
 							"    pm.expect(pm.variables.get(\"age\")).to.eq(responsedAge);",
+							"",
+							"    await sleep(1100)",
 							"});"
 						],
 						"type": "text/javascript"
@@ -60,11 +66,17 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"function sleep(ms) {",
+							"    return new Promise(resolve => setTimeout(resolve, ms));",
+							"}",
+							"",
 							"var json = pm.response.json();",
-							"pm.test(\"Get all employees response test\", function () {",
+							"pm.test(\"Get all employees response test\", async function () {",
 							"    pm.expect(json.status).to.eq(\"success\");",
 							"    pm.expect(json.data.length).to.eq(24);",
 							"    pm.expect(json.message).to.eq(\"Successfully! All records has been fetched.\");",
+							"",
+							"    await sleep(1100)",
 							"});",
 							""
 						],

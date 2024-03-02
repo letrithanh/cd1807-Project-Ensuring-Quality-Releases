@@ -13,8 +13,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Created employee regression test\", function () {",
+							"function sleep(ms) {",
+							"    return new Promise(resolve => setTimeout(resolve, ms));",
+							"}",
+							"",
+							"pm.test(\"Created employee regression test\", async function () {",
 							"    pm.expect(pm.response.code).to.eq(201)",
+							"    await sleep(1100)",
 							"});"
 						],
 						"type": "text/javascript"
@@ -52,8 +57,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get all employee regression test\", function () {",
+							"function sleep(ms) {",
+							"    return new Promise(resolve => setTimeout(resolve, ms));",
+							"}",
+							"",
+							"pm.test(\"Get all employee regression test\", async function () {",
 							"    pm.expect(pm.response.code).to.eq(200)",
+							"    await sleep(1100)",
 							"});"
 						],
 						"type": "text/javascript"
