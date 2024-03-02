@@ -258,6 +258,11 @@ stages:
           - download: current
             artifact: drop-uitests
             name: "selenium_test_download"
+          # Delay v1
+          # Delay further execution of a workflow by a fixed time.
+          - task: Delay@1
+            inputs:
+              delayForMinutes: '15' # string. Required. Delay Time (minutes). Default: 0.
           - task: Bash@3
             inputs:
               targetType: 'inline'
