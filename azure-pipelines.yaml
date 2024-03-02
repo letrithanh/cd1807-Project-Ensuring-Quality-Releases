@@ -284,7 +284,7 @@ stages:
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/azuredevops/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
-                    LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                    LATEST=122.0.6261.94
                     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
                     unzip -o chromedriver_linux64.zip
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
@@ -304,3 +304,17 @@ stages:
             inputs:
               targetPath: '$(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log'
               artifactName: 'drop-selenium-logs'
+
+- stage: Destroy
+  jobs:
+  - job: Destroy
+    steps:
+    # ToDo: Change the workingDirectory path, as applicable to you
+    # Destroy the resources in Azure by running a separate pipeline. 
+    - task: TerraformTaskV3@3
+      displayName: Terraform destroy
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        environmentServiceNameAzureRM: '$(azureServiceConnectionId)'
