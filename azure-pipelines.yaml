@@ -270,21 +270,21 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 cd ~/
-                DIR=/home/testuser/app
+                DIR=/home/azuredevops/app
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+                mv /home/azuredevops/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
-                FILE=/home/testuser/app/chromedriver_linux64.zip
+                FILE=/home/azuredevops/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
                     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
                     unzip -o chromedriver_linux64.zip
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
-                export PATH=$PATH:/home/testuser/app
+                export PATH=$PATH:/home/azuredevops/app
                 echo "Starting Selenium Tests"
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 run.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
