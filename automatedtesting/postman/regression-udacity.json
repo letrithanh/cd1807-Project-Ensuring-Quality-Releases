@@ -13,13 +13,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"function sleep(ms) {",
-							"    return new Promise(resolve => setTimeout(resolve, ms));",
-							"}",
-							"",
 							"pm.test(\"Created employee regression test\", async function () {",
+							"    // Wait for 1 minute before proceeding with the test",
+							"    await new Promise(resolve => setTimeout(resolve, 60000));",
+							"    ",
 							"    pm.expect(pm.response.code).to.eq(201)",
-							"    await sleep(1100)",
 							"});"
 						],
 						"type": "text/javascript"
@@ -57,13 +55,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"function sleep(ms) {",
-							"    return new Promise(resolve => setTimeout(resolve, ms));",
-							"}",
-							"",
 							"pm.test(\"Get all employee regression test\", async function () {",
-							"    pm.expect(pm.response.code).to.eq(200)",
-							"    await sleep(1100)",
+							"  // Wait for 1 minute before proceeding with the test",
+							"  await new Promise(resolve => setTimeout(resolve, 60000));",
+							"",
+							"  pm.expect(pm.response.code).to.eq(200);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -84,6 +80,26 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

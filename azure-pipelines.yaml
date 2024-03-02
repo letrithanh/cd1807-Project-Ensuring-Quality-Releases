@@ -263,36 +263,30 @@ stages:
               targetType: 'inline'
               script: |           
                 #! /bin/bash
-                sudo apt-get update -y
+                
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                sudo apt-get install -y chromium-chromedriver
                 pip3 install selenium
                 cd ~/
-                DIR=/home/azureuser/app
+                DIR=/home/testuser/app
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip app
+                mv /home/testuser/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
-                FILE=/home/azureuser/app/chromedriver_linux64.zip
+                FILE=/home/testuser/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
                     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
                     unzip -o chromedriver_linux64.zip
-                    sudo mv chromedriver /usr/bin/chromedriver
-                    sudo chown root:root /usr/bin/chromedriver
-                    sudo chmod +x /usr/bin/chromedriverq
+                    sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
                 fi
-                export PATH=$PATH:/usr/bin/chromedriver
-
+                export PATH=$PATH:/home/testuser/app
                 echo "Starting Selenium Tests"
-                mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
-                python3 run.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
-                ls $(Pipeline.Workspace)/drop-uitests/log/selenium
+                python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 sudo mkdir -p /var/log
