@@ -279,7 +279,7 @@ stages:
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
-                mv /home/azuredevops/azagent/_work/1/drop-uitests/$(Build.BuildId)-uitests.zip app
+                mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
                 echo "Starting Selenium Tests"
