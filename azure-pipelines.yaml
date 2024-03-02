@@ -286,7 +286,9 @@ stages:
                 fi
                 export PATH=$PATH:/home/testuser/app
                 echo "Starting Selenium Tests"
-                python3 add_remove_from_cart.py >> selenium.log
+                mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
+                python3 run.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
+                ls $(Pipeline.Workspace)/drop-uitests/log/selenium
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 sudo mkdir -p /var/log

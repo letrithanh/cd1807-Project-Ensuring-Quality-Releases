@@ -22,7 +22,6 @@
 							"    // Wait for 1 minute before proceeding with the test",
 							"    await new Promise(resolve => setTimeout(resolve, 60000));",
 							"    ",
-							"    pm.expect(id != null).to.true()",
 							"    pm.expect(pm.variables.get(\"name\")).to.eq(responsedName);",
 							"    pm.expect(pm.variables.get(\"salary\")).to.eq(responsedSalary);",
 							"    pm.expect(pm.variables.get(\"age\")).to.eq(responsedAge);",

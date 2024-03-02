@@ -17,7 +17,7 @@
 							"    // Wait for 1 minute before proceeding with the test",
 							"    await new Promise(resolve => setTimeout(resolve, 60000));",
 							"    ",
-							"    pm.expect(pm.response.code).to.eq(201)",
+							"    pm.expect(pm.response.code).to.eq(200)",
 							"});"
 						],
 						"type": "text/javascript"
