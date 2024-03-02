@@ -196,6 +196,11 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: CmdLine@2
+            displayName: Delay for app service
+            inputs:
+              script: 'sleep 900'
+              workingDirectory: $(System.DefaultWorkingDirectory)
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
@@ -258,11 +263,6 @@ stages:
           - download: current
             artifact: drop-uitests
             name: "selenium_test_download"
-          # Delay v1
-          # Delay further execution of a workflow by a fixed time.
-          - task: Delay@1
-            inputs:
-              delayForMinutes: '15' # string. Required. Delay Time (minutes). Default: 0.
           - task: Bash@3
             inputs:
               targetType: 'inline'
