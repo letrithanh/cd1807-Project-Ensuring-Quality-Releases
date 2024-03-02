@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "5cd1b291-ce19-4281-9bca-959b835cbfa8",
+		"name": "data-validation-udacity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4568102"
+	},
+	"item": [
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"const id = json.data.id",
+							"const responsedName = json.data.name",
+							"const responsedSalary = json.data.salary",
+							"const responsedAge = json.data.age",
+							"pm.test(\"Created employee response test\", function () {",
+							"    pm.expect(id != null).to.true()",
+							"    pm.expect(pm.variables.get(\"name\")).to.eq(responsedName);",
+							"    pm.expect(pm.variables.get(\"salary\")).to.eq(responsedSalary);",
+							"    pm.expect(pm.variables.get(\"age\")).to.eq(responsedAge);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/create",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = pm.response.json();",
+							"pm.test(\"Get all employees response test\", function () {",
+							"    pm.expect(json.status).to.eq(\"success\");",
+							"    pm.expect(json.data.length).to.eq(24);",
+							"    pm.expect(json.message).to.eq(\"Successfully! All records has been fetched.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/employees",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
