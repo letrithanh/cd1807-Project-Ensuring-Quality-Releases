@@ -5,7 +5,7 @@ import datetime
 
 def log(message):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    print(f"{timestamp} - {message}")
+    print(f"{timestamp} {message}")
 
 
 def driver_instance():

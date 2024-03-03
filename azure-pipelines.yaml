@@ -275,7 +275,7 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 cd ~/
-                DIR=/home/azuredevops/app
+                DIR=/home/azureuser/app
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
@@ -288,8 +288,7 @@ stages:
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
-                sudo mkdir -p /var/log
-                sudo cp $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log /var/log/selenium.log
+                cp $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log /home/azureuser/app/selenium.log
                 
           - task: PublishPipelineArtifact@1
             displayName: Publish Selenium Log
